@@ -1,6 +1,7 @@
 import pygame
+import random
 
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.utils.constants import MOUNTAIN, CLOUD, BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
 from dino_runner.components.dinosaur import Dinosaur
 
 class Game:
@@ -17,6 +18,14 @@ class Game:
         self.game_speed = 20
         self.x_pos_bg = 0
         self.y_pos_bg = 380
+        self.x_pos_cloud = 100
+        self.y_pos_cloud = 80
+        self.x_pos_cloud2 = 900
+        self.y_pos_cloud2 = 60
+        self.x_pos_cloud3 = 1600
+        self.y_pos_cloud3 = 90
+        self.x_pos_mountain = -10
+        self.y_pos_mountain = -40
 
     def run(self):
         # Game loop: events - update - draw
@@ -48,9 +57,32 @@ class Game:
 
     def draw_background(self):
         image_width = BG.get_width()
+        mountain = pygame.transform.scale(MOUNTAIN,(2580, 420))
         self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))
         self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
+        self.clouds(image_width, self.x_pos_cloud, self.y_pos_cloud, True)
+        self.clouds(image_width, self.x_pos_cloud2, self.y_pos_cloud2, True)
+        self.clouds(image_width, self.x_pos_cloud3, self.y_pos_cloud3, True)
+        self.screen.blit(mountain, (self.x_pos_mountain, self.y_pos_mountain))
+        self.screen.blit(mountain, (image_width + self.x_pos_mountain, self.y_pos_mountain))
         if self.x_pos_bg <= -image_width:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
+            self.clouds(image_width, self.x_pos_cloud3, self.y_pos_cloud3, False)
+            self.clouds(image_width, self.x_pos_cloud3, self.y_pos_cloud3, False)
+            self.clouds(image_width, self.x_pos_cloud3, self.y_pos_cloud3, False)
+            self.screen.blit(mountain, (image_width + self.x_pos_mountain, self.y_pos_mountain))
             self.x_pos_bg = 0
+            self.x_pos_cloud = 100
+            self.x_pos_cloud2 = 900
+            self.x_pos_cloud3 = 1600
+            self.x_pos_mountain = -10
         self.x_pos_bg -= self.game_speed
+        self.x_pos_cloud -= self.game_speed
+        self.x_pos_cloud2 -= self.game_speed
+        self.x_pos_cloud3 -= self.game_speed
+        self.x_pos_mountain -= self.game_speed
+    
+    def clouds(self, image_width, x, y, cond):
+        if cond:
+            self.screen.blit(CLOUD, (x, y))
+        self.screen.blit(CLOUD, (image_width + x, y))

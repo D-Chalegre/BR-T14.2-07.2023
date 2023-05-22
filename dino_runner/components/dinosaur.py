@@ -31,6 +31,10 @@ class Dinosaur:
             self.dino_run = False
         elif not self.dino_jump:
             self.dino_run = True
+        if user_input[pygame.K_LEFT]:
+            self.dino_rect.x -= 7
+        if user_input[pygame.K_RIGHT]:
+            self.dino_rect.x += 7
             
         if self.dino_run:
             self.run()
@@ -57,11 +61,10 @@ class Dinosaur:
     def jump(self):
         self.image = JUMPING
         
-        if self.dino_jump:
-            self.dino_rect.y -= self.jump_vel*4
-            self.jump_vel -= 0.8
+        self.dino_rect.y -= self.jump_vel*4
+        self.jump_vel -= 0.8
             
-        if self.jump_vel <- JUMP_VEL:
+        if self.jump_vel < -JUMP_VEL:
             self.dino_rect_y = Y_POS
             self.dino_jump = False
             self.jump_vel = JUMP_VEL
