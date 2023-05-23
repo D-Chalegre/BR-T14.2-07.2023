@@ -1,9 +1,10 @@
 import pygame
+import time
 
-from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING
+from dino_runner.utils.constants import SCREEN_WIDTH, RUNNING, JUMPING, DUCKING
 
-Y_POS = 310
-Y_POS_DUCK = 340
+Y_POS = 375
+Y_POS_DUCK = 413
 JUMP_VEL = 8.5
 
 class Dinosaur:
@@ -22,15 +23,15 @@ class Dinosaur:
         self.jump_vel = JUMP_VEL
     
     def update(self, user_input):
-        
-        if user_input[pygame.K_UP]:
+        valid = True
+        if user_input[pygame.K_UP] and self.dino_rect.y == Y_POS:
             self.dino_run = False
             self.dino_jump = True
+        elif not self.dino_jump:
+            self.dino_run = True
         if user_input[pygame.K_DOWN]:
             self.dino_duck = True
             self.dino_run = False
-        elif not self.dino_jump:
-            self.dino_run = True
         if user_input[pygame.K_LEFT]:
             self.dino_rect.x -= 7
         if user_input[pygame.K_RIGHT]:
@@ -68,6 +69,8 @@ class Dinosaur:
             self.dino_rect_y = Y_POS
             self.dino_jump = False
             self.jump_vel = JUMP_VEL
+        
+            
     
     def draw(self, screen):
         screen.blit(self.image,(self.dino_rect.x, self.dino_rect.y))

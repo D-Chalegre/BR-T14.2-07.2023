@@ -46,14 +46,14 @@ DUCKING_HAMMER = [
 ]
 
 SMALL_CACTUS = [
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus2.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus3.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/pedra1.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/pedra2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/pedra3.png")),
 ]
 LARGE_CACTUS = [
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus2.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus3.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/pedra01.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/pedra02.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/pedra03.png")),
 ]
 
 BIRD = [
@@ -64,9 +64,10 @@ BIRD = [
 CLOUD = pygame.image.load(os.path.join(IMG_DIR, 'Other/Cloud.png'))
 SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
 HAMMER = pygame.image.load(os.path.join(IMG_DIR, 'Other/hammer.png'))
-MOUNTAIN = pygame.image.load(os.path.join(IMG_DIR, 'Other/moutain.png'))
+MOUNTAIN = pygame.image.load(os.path.join(IMG_DIR, 'Other/montanha.png'))
+ROCHA = pygame.image.load(os.path.join(IMG_DIR, 'Other/rochaA.png')) 
 
-BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
+BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/mato2.jpg'))
 
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
