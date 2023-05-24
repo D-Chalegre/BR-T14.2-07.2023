@@ -21,13 +21,13 @@ class Obstacle:
 
         if cond:
             if self.direction == "up":
-                self.rect.y -= game_speed
+                self.rect.y -= game_speed - 15
             else:
-                self.rect.y += game_speed
+                self.rect.y += game_speed - 15
 
             if self.rect.y <= 150:
                 self.direction = "down"
-            elif self.rect.y >= 500:
+            elif self.rect.y >= 420:
                 self.direction = "up"
 
             if self.image == BIRD[0]:

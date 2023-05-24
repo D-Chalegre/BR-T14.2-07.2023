@@ -28,7 +28,10 @@ class ObstacleManager:
             
             if game.player.dino_rect.colliderect(obstacle.rect):
                 pygame.time.delay(500)
-                game.playing = False  
+                if game.death_count == 2:
+                    game.playing = False 
+                self.reset_obstacles()
+                game.death_count += 1
         
     def draw(self,screen):
         for obstacle in self.obstacles:
@@ -36,3 +39,6 @@ class ObstacleManager:
 
     def geranumero(self):
        return random.randint(1, 99)
+    
+    def reset_obstacles(self):
+        self.obstacles.clear()
