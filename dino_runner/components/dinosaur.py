@@ -31,7 +31,7 @@ class Dinosaur:
             self.dino_jump = True
         elif not self.dino_jump:
             self.dino_run = True
-        elif user_input[pygame.K_DOWN]:
+        if user_input[pygame.K_DOWN]:
             self.dino_duck = True
             self.dino_run = False
         if user_input[pygame.K_LEFT]:
@@ -45,9 +45,10 @@ class Dinosaur:
             self.jump()
         elif self.dino_duck:
             self.duck()
-        
+
         if self.step_count > 9:
             self.step_count = 0
+
     
     def run(self):
         self.image = RUNNING[self.step_count//5]
