@@ -1,6 +1,10 @@
 import pygame
 
+<<<<<<< Updated upstream
 from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING, SCREEN_WIDTH
+=======
+from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING
+>>>>>>> Stashed changes
 
 Y_POS = 310
 Y_POS_DUCK = 340
@@ -25,6 +29,7 @@ class Dinosaur:
     
     def update(self, user_input):
         
+<<<<<<< Updated upstream
         if user_input[pygame.K_RIGHT]:
             self.dino_rect.x = self.dino_rect.x >= SCREEN_WIDTH - self.dino_rect.width and self.dino_rect.x or self.dino_rect.x + WALK
         elif user_input[pygame.K_LEFT]:
@@ -34,10 +39,23 @@ class Dinosaur:
             self.dino_run = False
             self.dino_jump = True
         elif user_input[pygame.K_DOWN]:
+=======
+        if user_input[pygame.K_UP]:
+            self.dino_run = False
+            self.dino_jump = True
+        if user_input[pygame.K_DOWN]:
+>>>>>>> Stashed changes
             self.dino_duck = True
             self.dino_run = False
         elif not self.dino_jump:
             self.dino_run = True
+<<<<<<< Updated upstream
+=======
+        if user_input[pygame.K_LEFT]:
+            self.dino_rect.x -= 7
+        if user_input[pygame.K_RIGHT]:
+            self.dino_rect.x += 7
+>>>>>>> Stashed changes
             
         if self.dino_run:
             self.run()
