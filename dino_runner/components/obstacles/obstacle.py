@@ -2,6 +2,9 @@ from dino_runner.utils.constants import BIRD, SCREEN_WIDTH
 import pygame
 Y_POS = 380
 
+from dino_runner.utils.constants import SCREEN_WIDTH, OBSTACLE_Y_POS
+
+
 class Obstacle:
     def __init__(self, image):
         self.image = image
@@ -42,4 +45,13 @@ class Obstacle:
 
     def draw(self, screen):
         #self.image = pygame.transform.scale(self.image, (100, 120))
+        self.rect.y = OBSTACLE_Y_POS
+    
+    def update(self, game_speed, obstacles):
+        self.rect.x -=game_speed
+        
+        if self.rect.x <-self.rect.width:
+            obstacles.pop()
+    
+    def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
