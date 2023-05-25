@@ -6,36 +6,39 @@ class Obstacle:
     def __init__(self, image):
         self.image = image
         self.rect = self.image.get_rect()
-        self.rect.x = SCREEN_WIDTH
+        self.rect.x = SCREEN_WIDTH + 100
         self.rect.y = 390
         self.direction = 'up'
         self.contador = 0
         self.cont = 0
+        self.valid = True
     
-    def update(self, game_speed, obstacles, cond):
+    def update(self, game_speed, obstacles, cond1, cond2):
         self.cont += 1
         if self.cont >= 8:
             self.contador += 1
             self.cont = 0
         self.rect.x -= game_speed 
 
-        if cond:
+        if cond1:
             if self.direction == "up":
-                self.rect.y -= game_speed - 15
-            else:
-                self.rect.y += game_speed - 15
+                self.rect.y -= 6
+            if self.direction == "fixo":
+                self.rect.y = 400
+            if self.direction == "down":
+                self.rect.y += 8
 
-            if self.rect.y <= 150:
+            if self.rect.y <= 100:
                 self.direction = "down"
-            elif self.rect.y >= 420:
-                self.direction = "up"
+            if self.rect.y >= 400:
+                self.direction = "fixo"
 
-            if self.image == BIRD[0]:
-                if self.contador % 2 == 0:
-                    self.image = BIRD[1]
+        if cond2:
+            if self.rect.y < 350:
+                self.valid = True
+                self.rect.y += game_speed - 10
             else:
-                if self.contador % 2 != 0:
-                    self.image = BIRD[0]
+                self.valid = False
                    
         if self.rect.x <-self.rect.width:
             obstacles.pop()

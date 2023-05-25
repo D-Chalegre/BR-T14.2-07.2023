@@ -1,18 +1,34 @@
 import pygame
 import time
 
-from dino_runner.utils.constants import SCREEN_WIDTH, RUNNING, JUMPING, DUCKING
+from dino_runner.utils.constants import RUNNING_HAMMER, DUCKING_HAMMER, JUMPING_HAMMER, HAMMER_TYPE, JUMPING_SHIELD, DUCKING_SHIELD, RUNNING_SHIELD, SHIELD_TYPE, DEFAULT_TYPE, SCREEN_WIDTH, RUNNING, JUMPING, DUCKING
 
 Y_POS = 375
 Y_POS_DUCK = 413
 JUMP_VEL = 8.5
 WALK = 5
 
+RUN_IMG = {DEFAULT_TYPE: RUNNING, HAMMER_TYPE: RUNNING_HAMMER,
+           DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD}
+
+DUCK_IMG = {DEFAULT_TYPE: DUCKING, HAMMER_TYPE: DUCKING_HAMMER,
+            DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD}
+
+JUMP_IMG = {DEFAULT_TYPE: JUMPING, HAMMER_TYPE: JUMPING_HAMMER,
+            DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD}
 
 class Dinosaur:
     def __init__(self):
-        self.image = RUNNING[0]
+        self.type = DEFAULT_TYPE
+        self.image = RUN_IMG[DEFAULT_TYPE][0]
         self.dino_rect = self.image.get_rect()
+
+        self.buff1 = False
+        self.buff2 = False
+
+        self.has_power_up = False
+        self.power_up_time_up = 0
+
         self.dino_rect.x = 10
         self.dino_rect.y = Y_POS
         
@@ -34,9 +50,9 @@ class Dinosaur:
         if user_input[pygame.K_DOWN]:
             self.dino_duck = True
             self.dino_run = False
-        if user_input[pygame.K_LEFT]:
+        if user_input[pygame.K_LEFT] and self.dino_rect.x > 7:
             self.dino_rect.x -= 7
-        if user_input[pygame.K_RIGHT]:
+        if user_input[pygame.K_RIGHT] and self.dino_rect.x < 1000:
             self.dino_rect.x += 7
             
         if self.dino_run:
@@ -51,19 +67,38 @@ class Dinosaur:
 
     
     def run(self):
-        self.image = RUNNING[self.step_count//5]
+        self.image = RUN_IMG[self.type][self.step_count//5]
+        if self.image == RUN_IMG[HAMMER_TYPE][0]:
+            self.buff1 = True
+            self.buff2 = False
+        if self.image == RUN_IMG[DEFAULT_TYPE][0]:
+            self.buff1 = False
+            self.buff2 = False
+        if self.image == RUN_IMG[SHIELD_TYPE][0]:
+            self.buff2 = True
+            self.buff1 = False
+
         self.dino_rect.y = Y_POS
         
         self.step_count+=1
     
     def duck(self):
-        self.image = DUCKING[self.step_count//5]
+        self.image = DUCK_IMG[self.type][self.step_count//5]
+        if self.image == DUCK_IMG[HAMMER_TYPE][0]:
+            self.buff1 = True
+            self.buff2 = False
+        if self.image == DUCK_IMG[DEFAULT_TYPE][0]:
+            self.buff1 = False 
+            self.buff2 = False
+        if self.image == DUCK_IMG[SHIELD_TYPE][0]:
+            self.buff2 = True
+            self.buff1 = False
         self.dino_rect.y = Y_POS_DUCK
         
         self.step_count+=1
     
     def jump(self):
-        self.image = JUMPING
+        self.image = JUMP_IMG[self.type]
         
         self.dino_rect.y -= self.jump_vel*4
         self.jump_vel -= 0.8
